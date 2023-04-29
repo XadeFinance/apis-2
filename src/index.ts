@@ -86,7 +86,6 @@ async function main(): Promise<void> {
   setDefaultEnvVar("PORT", "4000");
   setDefaultEnvVar("HOST", "0.0.0.0");
   setDefaultEnvVar("SIGNING_KEY", "whsec_O8iFY5eJDnTuNxUF9KxesVkW");
-  setDefaultEnvVar("KEY", "")
   const port = Number(getRequiredEnvVar("PORT"));
   const host = getRequiredEnvVar("HOST");
   const signingKey = getRequiredEnvVar("SIGNING_KEY");
@@ -240,7 +239,7 @@ async function main(): Promise<void> {
       // Set the topic to send the notification to
       const { title, body, key, os } = req.body
       // Construct the notification message
-      if (key != getRequiredEnvVar("KEY")) return res.status(400).json({ message: 'Wrong key' });
+      if (key != process.env.API_KEY) return res.status(400).json({ message: 'Wrong key' });
       const message = {
         topic: os,
         notification: {
@@ -304,6 +303,7 @@ async function main(): Promise<void> {
 
   app.post('/faucet', async (req:any, res:any) => {
     try {
+          if (key != process.env.API_KEY) return res.status(400).json({ message: 'Wrong key' });
     const provider = new ethers.JsonRpcProvider(
       "https://rpc-mumbai.maticvigil.com"
     );
