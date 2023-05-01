@@ -4,6 +4,29 @@ import * as dotenv from 'dotenv';
 var admin = require("firebase-admin");
 let contractAbi = require('./contractAbi')
 var serviceAccount = require("./serviceAccount.json");
+const CryptoJS = require("crypto-js");
+
+function decryptAESObjectMiddleware(req:any, res:any, next:any) {
+  const encryptedString = req.query.encryptedString; // assuming the encrypted string is passed as a query parameter
+
+  if (!encryptedString) {
+    return res.status(400).json({ error: "No encrypted string provided" });
+  }
+
+  const secretKey = process.env.KEY; // replace with your own secret key
+  const decryptedData = CryptoJS.AES.decrypt(encryptedString, secretKey).toString(CryptoJS.enc.Utf8);
+
+  try {
+    const decryptedObj = JSON.parse(decryptedData);
+    if(decryptedObj.verify != process.env.VERIFY)
+      return res.status(400).json({ error: "Invalid encrypted data provided" });
+    req.body = { ...req.body, ...decryptedObj };
+    next();
+  } catch (error) {
+    return res.status(400).json({ error: "Invalid encrypted data provided" });
+  }
+}
+
 // const contractAbi = require('./contractAbi')
 // Setup: npm install alchemy-sdk
 // Github: https://github.com/alchemyplatform/alchemy-sdk-js
@@ -101,7 +124,7 @@ async function main(): Promise<void> {
   app.use(bodyParser.json());
   // Register handler for Alchemy Notify webhook events
   // TODO: update to your own webhook path
-  app.post('/points', async (req, res) => {
+  app.post('/points', decryptAESObjectMiddleware,async (req, res) => {
     const { userId, transactionAmount } = req.body;
 
     try {
@@ -282,11 +305,11 @@ async function main(): Promise<void> {
   // Redirect to the app with the referral code
   app.get('/:referralCode', async (req, res) => {
     try {
-//const { referralCode } = req.params;
-  //    const userTo = await User.findOne({ walletAddress: referralCode.toLowerCase() })
-    //  const newPoints = userTo.points + 50;
-      //await userTo.updateOne({ points: newPoints});
-      //await userTo.save(); 
+        const { referralCode } = req.params;
+        const userTo = await User.findOne({ walletAddress: referralCode.toLowerCase() })
+        const newPoints = userTo.points + 50;
+        await userTo.updateOne({ points: newPoints});
+        await userTo.save(); 
 
         res.set('Content-Type', 'text/html');
   res.redirect(301, 'https://onelink.to/weupf9');
