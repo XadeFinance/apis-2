@@ -275,24 +275,21 @@ async function main(): Promise<void> {
   })
   app.get('/redirect', (req, res) => {
     res.set('Content-Type', 'text/html');
-  res.redirect(301, 'https://www.example.com');
+  res.redirect(301, 'https://onelink.to/weupf9');
 
   });
 
   // Redirect to the app with the referral code
-  app.get('/refer/:referralCode', async (req, res) => {
+  app.get('/:referralCode', async (req, res) => {
     try {
-      const { referralCode } = req.params;
-      const userTo = await User.findOne({ walletAddress: referralCode.toLowerCase() })
-      const newPoints = userTo.points + 50;
-      // const newMainPoints = userTo.testPoints + 300;
-      await userTo.updateOne({ points: newPoints});
-      await userTo.save();
-         // Validate the referral code and retrieve the user record from the database
-    // ...
+//const { referralCode } = req.params;
+  //    const userTo = await User.findOne({ walletAddress: referralCode.toLowerCase() })
+    //  const newPoints = userTo.points + 50;
+      //await userTo.updateOne({ points: newPoints});
+      //await userTo.save(); 
 
-    // Redirect to the app with the referral code as a query parameter
-    res.set('location', 'https://onelink.to/weupf9');
+        res.set('Content-Type', 'text/html');
+  res.redirect(301, 'https://onelink.to/weupf9');
     }
     catch (e) {
       res.send(500)
