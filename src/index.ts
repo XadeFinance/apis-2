@@ -282,12 +282,12 @@ async function main(): Promise<void> {
   // Redirect to the app with the referral code
   app.get('/refer/:referralCode', async (req, res) => {
     try {
-      const { referralCode } = req.params;
+<!--       const { referralCode } = req.params;
       const userTo = await User.findOne({ walletAddress: referralCode.toLowerCase() })
       const newPoints = userTo.points + 50;
       // const newMainPoints = userTo.testPoints + 300;
       await userTo.updateOne({ points: newPoints});
-      await userTo.save();
+      await userTo.save(); -->
          // Validate the referral code and retrieve the user record from the database
     // ...
 
