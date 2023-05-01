@@ -12,7 +12,7 @@ import{ ethers }from 'ethers'
 // authToken is required to use Notify APIs. Found on the top right corner of
 // https://dashboard.alchemy.com/notify.
 const settings = {
-  authToken: "a5g3Pe81wgCao0FNOLreE1qyo5LFhTRd",
+  authToken: process.env.authToken,
   network: Network.POLYGONZKEVM_MAINNET, // Replace with your network.
 };
 
@@ -303,6 +303,7 @@ async function main(): Promise<void> {
 
   app.post('/faucet', async (req:any, res:any) => {
     try {
+      const{ key }= req.body
           if (key != process.env.API_KEY) return res.status(400).json({ message: 'Wrong key' });
     const provider = new ethers.JsonRpcProvider(
       "https://rpc-mumbai.maticvigil.com"
