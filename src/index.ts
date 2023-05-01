@@ -275,7 +275,7 @@ async function main(): Promise<void> {
   })
   app.get('/redirect', (req, res) => {
     res.set('Content-Type', 'text/html');
-  res.redirect(301, 'https://www.example.com');
+  res.redirect(301, 'https://onelink.to/weupf9');
 
   });
 
