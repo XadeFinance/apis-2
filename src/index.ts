@@ -7,24 +7,12 @@ var serviceAccount = require("./serviceAccount.json");
 const CryptoJS = require("crypto-js");
 
 function decryptAESObjectMiddleware(req:any, res:any, next:any) {
-  const encryptedString = req.query.encryptedString; // assuming the encrypted string is passed as a query parameter
+  const encryptedString = req.body.key; // assuming the encrypted string is passed as a query parameter
 
-  if (!encryptedString) {
+  if (key != process.env.API_KEY) {
     return res.status(400).json({ error: "No encrypted string provided" });
   }
 
-  const secretKey = process.env.KEY; // replace with your own secret key
-  const decryptedData = CryptoJS.AES.decrypt(encryptedString, secretKey).toString(CryptoJS.enc.Utf8);
-
-  try {
-    const decryptedObj = JSON.parse(decryptedData);
-    if(decryptedObj.verify != process.env.VERIFY)
-      return res.status(400).json({ error: "Invalid encrypted data provided" });
-    req.body = { ...req.body, ...decryptedObj };
-    next();
-  } catch (error) {
-    return res.status(400).json({ error: "Invalid encrypted data provided" });
-  }
 }
 
 // const contractAbi = require('./contractAbi')
