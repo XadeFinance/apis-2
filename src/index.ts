@@ -311,8 +311,8 @@ async function main(): Promise<void> {
 
   app.post('/faucet', async (req:any, res:any) => {
     try {
-      const{ key }= req.body
-          if (key != process.env.API_KEY) return res.status(400).json({ message: 'Wrong key' });
+      //const{ key }= req.body
+        //  if (key != process.env.API_KEY) return res.status(400).json({ message: 'Wrong key' });
     const provider = new ethers.JsonRpcProvider(
       "https://rpc-mumbai.maticvigil.com"
     );
