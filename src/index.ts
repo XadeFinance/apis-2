@@ -7,7 +7,7 @@ var serviceAccount = require("./serviceAccount.json");
 const CryptoJS = require("crypto-js");
 
 function decryptAESObjectMiddleware(req:any, res:any, next:any) {
-  const encryptedString = req.body.key; // assuming the encrypted string is passed as a query parameter
+  const key = req.body.key; // assuming the encrypted string is passed as a query parameter
 
   if (key != process.env.API_KEY) {
     return res.status(400).json({ error: "No encrypted string provided" });
