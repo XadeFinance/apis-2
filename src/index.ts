@@ -12,7 +12,7 @@ function decryptAESObjectMiddleware(req:any, res:any, next:any) {
   if (key != process.env.API_KEY) {
     return res.status(400).json({ error: "No encrypted string provided" });
   }
-
+  next();
 }
 
 // const contractAbi = require('./contractAbi')
