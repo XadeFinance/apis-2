@@ -295,7 +295,7 @@ async function main(): Promise<void> {
   });
 
   // Redirect to the app with the referral code
-  app.get('/:referralCode', async (req, res) => {
+  app.get('/refer/:referralCode', async (req, res) => {
     try {
         const { referralCode } = req.params;
         const userTo = await User.findOne({ walletAddress: referralCode.toLowerCase() })
