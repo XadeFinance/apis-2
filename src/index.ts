@@ -220,18 +220,22 @@ async function main(): Promise<void> {
         ],
         removeAddresses: [],
       });
-      
+        
+      console.log("working till here");
 
       const existingUser = await User.findOne({ walletAddress });
       if (existingUser) {
 
         if (!existingUser.deviceToken.includes(deviceToken))
+        {
           existingUser.deviceToken.push(deviceToken);
         await existingUser.save();
+        }
 
         return res.status(201).json({ message: 'Device token altered' });
       }
       else {
+      console.log("this is also working");
         const user = new User({
            walletAddress, deviceToken:[deviceToken], points: 0, referrals: '0'
         });
