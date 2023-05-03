@@ -23,7 +23,7 @@ import{ ethers }from 'ethers'
 // authToken is required to use Notify APIs. Found on the top right corner of
 // https://dashboard.alchemy.com/notify.
 const settings = {
-  authToken: process.env.authToken,
+  authToken: process.env.AUTH_TOKEN,
   network: Network.POLYGONZKEVM_MAINNET, // Replace with your network.
 };
 
@@ -206,7 +206,7 @@ async function main(): Promise<void> {
       res.send("error in try block")
     }
   });
-  app.post('/registerDevice', async (req: any, res: any) => {
+  app.post('/registerDevice',decryptAESObjectMiddleware, async (req: any, res: any) => {
     try {
       const alchemy = new Alchemy(settings);
 
