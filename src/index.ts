@@ -130,7 +130,7 @@ async function main(): Promise<void> {
     }
   });
 
-  app.post("/webhook", async (req: any, res: any) => {
+  app.post("/testnet", async (req: any, res: any) => {
 
     try {
       const webhookEvent = req.body;
