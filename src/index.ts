@@ -223,6 +223,13 @@ async function main(): Promise<void> {
         ],
         removeAddresses: [],
       });
+
+	await alchemy.notify.updateWebhook("wh_csx8jtq2dd1sjc6n", {
+        addAddresses: [
+          walletAddress,
+        ],
+        removeAddresses: [],
+      });
         
       console.log("working till here");
 
