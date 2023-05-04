@@ -6,6 +6,7 @@ let contractAbi = require('./contractAbi')
 var serviceAccount = require("./serviceAccount.json");
 const CryptoJS = require("crypto-js");
 
+dotenv.config()
 function decryptAESObjectMiddleware(req:any, res:any, next:any) {
   const key = req.body.key; // assuming the encrypted string is passed as a query parameter
 
@@ -27,7 +28,6 @@ const settings = {
   network: Network.POLYGONZKEVM_MAINNET, // Replace with your network.
 };
 
-dotenv.config()
 
 
 
