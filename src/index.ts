@@ -162,8 +162,8 @@ async function main(): Promise<void> {
         console.log(e)
       }
       const receiverMessages = [
-        `Alert! Alert! ${senderName} has just bestowed upon you the grand sum of ${}. You are now officially richer than your neighbor's cat who has been living off of premium canned food. Congratulations!`,
-        `Woohoo! You've just received a payment of ${0} from ${senderName}, who clearly understands the value of your awesomeness. Time to celebrate with a victory dance and maybe a little online shopping spree (responsibly, of course). Thanks, ${senderName}, you're the real MVP!`,
+        `Alert! Alert! ${senderName} has just bestowed upon you the grand sum of ${value}. You are now officially richer than your neighbor's cat who has been living off of premium canned food. Congratulations!`,
+        `Woohoo! You've just received a payment of ${value} from ${senderName}, who clearly understands the value of your awesomeness. Time to celebrate with a victory dance and maybe a little online shopping spree (responsibly, of course). Thanks, ${senderName}, you're the real MVP!`,
 
       ]
 
