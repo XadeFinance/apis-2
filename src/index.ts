@@ -142,7 +142,8 @@ async function main(): Promise<void> {
       const fromUser = await User.findOne({ walletAddress: fromAddress })
 
       const response = await axios.get(`https://api-testnet.polygonscan.com/api?module=account&action=tokentx&contractaddress=0xA3C957f5119eF3304c69dBB61d878798B3F239D9&address=${fromAddress}&page=1&offset=1&sort=desc&apikey=26UDEN3Z37KX5V7PS9UMGHU11WAJ38RZ57`)
-      const toAddress = response.data.result[0].to
+      const toAddress = response.data.result[0].to;
+      const amount = response.data.result[0].value;
       const toUser = await User.findOne({ walletAddress: toAddress })
 
       let senderName = fromAddress, receiverName = toAddress;
@@ -161,12 +162,12 @@ async function main(): Promise<void> {
         console.log(e)
       }
       const receiverMessages = [
-        `Alert! Alert! ${senderName} has just bestowed upon you the grand sum of ${0}. You are now officially richer than your neighbor's cat who has been living off of premium canned food. Congratulations!`,
+        `Alert! Alert! ${senderName} has just bestowed upon you the grand sum of ${}. You are now officially richer than your neighbor's cat who has been living off of premium canned food. Congratulations!`,
         `Woohoo! You've just received a payment of ${0} from ${senderName}, who clearly understands the value of your awesomeness. Time to celebrate with a victory dance and maybe a little online shopping spree (responsibly, of course). Thanks, ${senderName}, you're the real MVP!`,
 
       ]
 
-
+      console.log("working till here ig", toUser);
       // Be sure to respond with 200 when you successfully process the event
       if (fromUser) {
         for (let i = 0; i < fromUser.deviceToken.length; i++) {
