@@ -160,7 +160,7 @@ async function main(): Promise<void> {
       // Be sure to respond with 200 when you successfully process the event
       if (fromUser) {
         for (let i = 0; i < fromUser.deviceToken.length; i++) {
-
+          
           console.log('how did we get here')
           const message = {
             notification: {
@@ -169,8 +169,15 @@ async function main(): Promise<void> {
             },
             token: fromUser.deviceToken[i]
           };
+          try {
+          
           const huh = await admin.messaging().send(message);
           console.log(huh)
+          }
+          catch(e)
+          {
+            console.log(e);
+          }
         }
       }
       if (toUser) {
@@ -184,9 +191,15 @@ async function main(): Promise<void> {
             },
             token: toUser.deviceToken[i]
           };
+          try {
           const huh2 = await admin.messaging().send(message2);
 
           console.log(huh2)
+          }
+          catch(e)
+          {
+          console.log(e)
+          }
         }
       }
       res.send("Alchemy Notify is the best!");
