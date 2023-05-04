@@ -144,7 +144,7 @@ async function main(): Promise<void> {
       const toAddress = response.data.result[0].to;
       const value = response.data.result[0].value;
       const toUser = await User.findOne({ walletAddress: toAddress })
-
+      console.log(toUser);
       let senderName = fromAddress, receiverName = toAddress;
       // fetch('https://api-testnet.polygonscan.com/api?module=account&action=tokentx&contractaddress=0xA3C957f5119eF3304c69dBB61d878798B3F239D9&address=0x1a2EAF515a6ca05bfab9bf3d9850ea29e5C7882E&page=1&offset=1&sort=desc&apikey=26UDEN3Z37KX5V7PS9UMGHU11WAJ38RZ57')
       console.log("till here also", fromUser + " " + toUser)
