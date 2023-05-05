@@ -147,7 +147,7 @@ async function main(): Promise<void> {
       //const response = await axios.get(`https://api-testnet.polygonscan.com/api?module=account&action=tokentx&contractaddress=0xA3C957f5119eF3304c69dBB61d878798B3F239D9&address=${fromAddress}&page=1&offset=1&sort=desc&apikey=26UDEN3Z37KX5V7PS9UMGHU11WAJ38RZ57`)
       //const toAddress = webhookEvent.event.activi
       console.log("toAddr", toAddress);
-      const value = response.data.result[0].value;
+      //const value = response.data.result[0].value;
       const toUser = await User.findOne({ walletAddress: toAddress })
       console.log(toUser);
       let senderName = fromAddress, receiverName = toAddress;
