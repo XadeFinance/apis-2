@@ -28,7 +28,10 @@ const settings = {
   network: Network.POLYGONZKEVM_MAINNET, // Replace with your network.
 };
 
-
+const settingtest = {
+  authToken: process.env.AUTH_TOKEN,
+  network: Network.POLYGONZKEVM_MAINNET, // Replace with your network.
+};
 
 
 var bodyParser = require('body-parser');
@@ -223,8 +226,8 @@ async function main(): Promise<void> {
         ],
         removeAddresses: [],
       });
-
-	await alchemy.notify.updateWebhook("wh_csx8jtq2dd1sjc6n", {
+     const alchemy2 = new Alchemy(settings);
+	await alchemy2.notify.updateWebhook("wh_csx8jtq2dd1sjc6n", {
         addAddresses: [
           walletAddress,
         ],
