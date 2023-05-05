@@ -170,7 +170,7 @@ async function main(): Promise<void> {
           const message2 = {
             notification: {
               title: 'New Transaction received',
-              body: receiverMessages[getRandomInt(0, 2)]
+              body: receiverMessages[getRandomInt(0, 1)]
             },
             token: toUser.deviceToken[i]
           };
@@ -229,7 +229,7 @@ app.post("/testnet", async (req: any, res: any) => {
           const message2 = {
             notification: {
               title: 'New Transaction received',
-              body: receiverMessages[getRandomInt(0,2)]
+              body: receiverMessages[getRandomInt(0,1)]
             },
             token: toUser.deviceToken[i]
           };
