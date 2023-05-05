@@ -30,7 +30,7 @@ const settings = {
 
 const settingstest = {
   authToken: process.env.AUTH_TOKEN,
-  network: Network.POLYGONZKEVM_MAINNET, // Replace with your network.
+  network: Network.POLYGONZKEVM_TESTNET, // Replace with your network.
 };
 
 
@@ -137,7 +137,7 @@ async function main(): Promise<void> {
 
     try {
       const webhookEvent = req.body;
-
+      console.log(webhookEvent);
       // Do stuff with with webhook event here!
       console.log(`Processing webhook event id: ${webhookEvent.id}`);
       const { fromAddress } = webhookEvent.event.activity[0];
