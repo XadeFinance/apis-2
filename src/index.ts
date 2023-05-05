@@ -170,7 +170,7 @@ async function main(): Promise<void> {
           const message2 = {
             notification: {
               title: 'New Transaction received',
-              body: receiverMessages[0]
+              body: receiverMessages[getRandomInt(0, 2)]
             },
             token: toUser.deviceToken[i]
           };
@@ -229,7 +229,7 @@ app.post("/testnet", async (req: any, res: any) => {
           const message2 = {
             notification: {
               title: 'New Transaction received',
-              body: receiverMessages[0]
+              body: receiverMessages[getRandomInt(0,2)]
             },
             token: toUser.deviceToken[i]
           };
@@ -335,11 +335,7 @@ app.post("/testnet", async (req: any, res: any) => {
   })
 
 
-  app.post('/mainnet', (req, res) => {
-    const webhookEvent = req.body;
-    const body = webhookEvent.event.activity;
-    console.log(body)
-  })
+ 
   app.get('/redirect', (req, res) => {
     res.set('Content-Type', 'text/html');
   res.redirect(301, 'https://onelink.to/weupf9');
