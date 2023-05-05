@@ -28,7 +28,7 @@ const settings = {
   network: Network.POLYGONZKEVM_MAINNET, // Replace with your network.
 };
 
-const settingtest = {
+const settingstest = {
   authToken: process.env.AUTH_TOKEN,
   network: Network.POLYGONZKEVM_MAINNET, // Replace with your network.
 };
@@ -226,7 +226,7 @@ async function main(): Promise<void> {
         ],
         removeAddresses: [],
       });
-     const alchemy2 = new Alchemy(settings);
+     const alchemy2 = new Alchemy(settingstest);
 	await alchemy2.notify.updateWebhook("wh_csx8jtq2dd1sjc6n", {
         addAddresses: [
           walletAddress,
