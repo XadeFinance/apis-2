@@ -138,13 +138,14 @@ async function main(): Promise<void> {
     try {
       const webhookEvent = req.body;
       console.log(webhookEvent.event.activity);
+
       // Do stuff with with webhook event here!
       console.log(`Processing webhook event id: ${webhookEvent.id}`);
-      const { fromAddress } = webhookEvent.event.activity[0];
-      console.log(fromAddress)
+      const { fromAddress, toAddress, asset, value } = webhookEvent.event.activity[0];
+      if (asset !== "XUSD") return res.send("madarjhaat!");
       const fromUser = await User.findOne({ walletAddress: fromAddress })
-      const response = await axios.get(`https://api-testnet.polygonscan.com/api?module=account&action=tokentx&contractaddress=0xA3C957f5119eF3304c69dBB61d878798B3F239D9&address=${fromAddress}&page=1&offset=1&sort=desc&apikey=26UDEN3Z37KX5V7PS9UMGHU11WAJ38RZ57`)
-      const toAddress = response.data.result[0].to;
+      //const response = await axios.get(`https://api-testnet.polygonscan.com/api?module=account&action=tokentx&contractaddress=0xA3C957f5119eF3304c69dBB61d878798B3F239D9&address=${fromAddress}&page=1&offset=1&sort=desc&apikey=26UDEN3Z37KX5V7PS9UMGHU11WAJ38RZ57`)
+      //const toAddress = webhookEvent.event.activi
       console.log("toAddr", toAddress);
       const value = response.data.result[0].value;
       const toUser = await User.findOne({ walletAddress: toAddress })
@@ -161,28 +162,7 @@ async function main(): Promise<void> {
 
       console.log("working till here ig", toUser);
       // Be sure to respond with 200 when you successfully process the event
-      if (fromUser) {
-        for (let i = 0; i < fromUser.deviceToken.length; i++) {
-          
-          console.log('how did we get here')
-          const message = {
-            notification: {
-              title: 'New Transaction sent',
-              body: senderMessages[getRandomInt(0, 2)]
-            },
-            token: fromUser.deviceToken[i]
-          };
-          try {
-          
-          const huh = await admin.messaging().send(message);
-          console.log(huh)
-          }
-          catch(e)
-          {
-            console.log(e);
-          }
-        }
-      }
+  
       if (toUser) {
         for (let i = 0; i < toUser.deviceToken.length; i++) {
           console.log("this must be working", toUser.deviceToken[i])
