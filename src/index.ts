@@ -137,7 +137,7 @@ async function main(): Promise<void> {
 
     try {
       const webhookEvent = req.body;
-      console.log(webhookEvent);
+      console.log(webhookEvent.event.activity);
       // Do stuff with with webhook event here!
       console.log(`Processing webhook event id: ${webhookEvent.id}`);
       const { fromAddress } = webhookEvent.event.activity[0];
