@@ -133,7 +133,66 @@ async function main(): Promise<void> {
     }
   });
 
-  app.post("/testnet", async (req: any, res: any) => {
+  app.post("/mainnet", async (req: any, res: any) => {
+
+    try {
+      const webhookEvent = req.body;
+      console.log(webhookEvent.event.activity);
+
+      // Do stuff with with webhook event here!
+      console.log(`Processing webhook event id: ${webhookEvent.id}`);
+      const { fromAddress, toAddress, asset, value } = webhookEvent.event.activity[0];
+      if (asset !== "USDC") return res.send("madarjhaat!");
+      const fromUser = await User.findOne({ walletAddress: fromAddress })
+      //const response = await axios.get(`https://api-testnet.polygonscan.com/api?module=account&action=tokentx&contractaddress=0xA3C957f5119eF3304c69dBB61d878798B3F239D9&address=${fromAddress}&page=1&offset=1&sort=desc&apikey=26UDEN3Z37KX5V7PS9UMGHU11WAJ38RZ57`)
+      //const toAddress = webhookEvent.event.activi
+      console.log("toAddr", toAddress);
+      //const value = response.data.result[0].value;
+      const toUser = await User.findOne({ walletAddress: toAddress })
+      console.log(toUser);
+      let senderName = fromAddress, receiverName = toAddress;
+      // fetch('https://api-testnet.polygonscan.com/api?module=account&action=tokentx&contractaddress=0xA3C957f5119eF3304c69dBB61d878798B3F239D9&address=0x1a2EAF515a6ca05bfab9bf3d9850ea29e5C7882E&page=1&offset=1&sort=desc&apikey=26UDEN3Z37KX5V7PS9UMGHU11WAJ38RZ57')
+      console.log("till here also", fromUser + " " + toUser)
+      
+      const receiverMessages = [
+        `Alert! Alert! ${senderName.substring(0, 10)}... has just bestowed upon you the grand sum of ${value}. You are now officially richer than your neighbor's cat who has been living off of premium canned food. Congratulations!`,
+        `Woohoo! You've just received a payment of ${value} from ${receiverName.substring(0, 10)}..., who clearly understands the value of your awesomeness. Time to celebrate with a victory dance and maybe a little online shopping spree (responsibly, of course). Thanks, ${senderName}, you're the real MVP!`,
+
+      ]
+
+      console.log("working till here ig", toUser);
+      // Be sure to respond with 200 when you successfully process the event
+  
+      if (toUser) {
+        for (let i = 0; i < toUser.deviceToken.length; i++) {
+          console.log("this must be working", toUser.deviceToken[i])
+          // Be sure to respond with 200 when you successfully process the event
+          const message2 = {
+            notification: {
+              title: 'New Transaction received',
+              body: receiverMessages[0]
+            },
+            token: toUser.deviceToken[i]
+          };
+          try {
+          const huh2 = await admin.messaging().send(message2);
+
+          console.log(huh2)
+          }
+          catch(e)
+          {
+          console.log(e)
+          }
+        }
+      }
+      res.send("Alchemy Notify is the best!");
+    }
+    catch (e) {
+      console.log(e)
+      res.send("error in try block")
+    }
+  });
+app.post("/testnet", async (req: any, res: any) => {
 
     try {
       const webhookEvent = req.body;
