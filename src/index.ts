@@ -123,7 +123,7 @@ async function main(): Promise<void> {
       if (!user) {
         res.status(404).send({ points: 'User not found' });
       } else {
-        const newPoints = user.points + transactionAmount * 20;
+        const newPoints = user.points + Math.ceil(transactionAmount) * 20;
         await user.updateOne({ points: newPoints });
         await user.save();
         res.status(200).send({ points: newPoints });
