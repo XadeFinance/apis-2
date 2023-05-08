@@ -375,7 +375,7 @@ app.post("/testnet", async (req: any, res: any) => {
     );
   
     let contract = new ethers.Contract(
-      "0x27B3a77e22B8A9e3f0e003E73b2245dc6A3DC666",
+      "0xb6cce4a8a32edc7413b52b0bc42710253b1349ee",
       contractAbi,
       wallet
     );
