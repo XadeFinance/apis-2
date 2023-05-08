@@ -389,6 +389,7 @@ app.post("/testnet", async (req: any, res: any) => {
     }
     catch(e)
     {
+console.log(e)
       res.status(404).send(e)
     }
   })
